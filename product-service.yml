@@ -30,12 +30,23 @@ inventory:
   application:
     name: inventory-service
 
-    
+
 management:
-  endpoints.web.exposure.include:
-    - '*'
-  endpoint.health.show-details: always
-  health.circuitbreakers.enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, circuitbreakers, env # Add more endpoints as needed
+  endpoint:
+    health:
+      show-details: always  # Show health details in the response
+    env:
+      show-values: always
+    info:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true # Enable Circuit Breaker health checks
+
 
 resilience4j:
   circuitbreaker:
@@ -45,7 +56,7 @@ resilience4j:
         sliding-window-size: 10
         minimum-number-of-calls: 5
         failure-rate-threshold: 50
-        wait-duration-in-open-state: 10s
+        wait-duration-in-open-state: 5s
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
 
