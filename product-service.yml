@@ -32,16 +32,10 @@ inventory:
 
     
 management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,circuitbreakers
-  health:
-    circuitbreakers:
-      enabled: true
-  endpoint:
-    health:
-      show-details: always  # Show detailed information in the health endpoint
+  endpoints.web.exposure.include:
+    - '*'
+  endpoint.health.show-details: always
+  health.circuitbreakers.enabled: true
 
 resilience4j:
   circuitbreaker:
